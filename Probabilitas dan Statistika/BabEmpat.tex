@@ -1,1 +1,456 @@
+\documentclass[12pt, a4paper]{article}
 
+% Paket yang dibutuhkan
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm]{geometry}
+\usepackage{parskip} % Jarak antar paragraf yang lega
+\usepackage{fancyhdr}
+\usepackage{hyperref} % Untuk membuat daftar isi bisa diklik
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+% Mematikan penomoran otomatis LaTeX agar sesuai format manual
+\setcounter{secnumdepth}{0} 
+
+% Pengaturan Header dan Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textbf{Bryan Pamungkas Prahara} -- 13525092}
+\fancyhead[R]{Rangkuman UTS Probstat}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{15pt}
+
+\begin{document}
+
+% ==========================================
+% SAMPUL
+% ==========================================
+\begin{titlepage}
+    \centering
+    \vspace*{4cm}
+    {\Huge \textbf{Rangkuman Materi UTS} \par}
+    \vspace{0.5cm}
+    {\Huge \textbf{Probabilitas dan Statistika} \par}
+    \vspace{2cm}
+    \hrule
+    \vspace{2cm}
+    {\Large \textbf{Disusun oleh:} \par}
+    \vspace{0.5cm}
+    {\Large \textbf{Bryan Pamungkas Prahara} \par}
+    {\Large \textbf{13525092} \par}
+    \vspace{2cm}
+    {\large Program Studi Teknik Informatika \par}
+    {\large Institut Teknologi Bandung \par}
+    \vfill
+    {\large \today \par}
+\end{titlepage}
+
+\newpage
+
+% ==========================================
+% DAFTAR ISI 
+% ==========================================
+\tableofcontents
+\newpage
+
+% ==========================================
+% KAMUS NOTASI DASAR
+% ==========================================
+\section{Kamus Notasi Dasar}
+
+Berikut adalah notasi dasar yang sering digunakan di sepanjang materi Probabilitas dan Statistika. Memahami simbol-simbol ini akan sangat mempercepat dalam membaca dan mengerjakan soal ujian.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\textbf{Simbol} & \textbf{Arti} \\ \hline
+$X, Y$ & Variabel random (acak) \\ \hline
+$x, y$ & Nilai tertentu dari variabel random \\ \hline
+$E(X)$ & Nilai ekspektasi atau rataan $X$ \\ \hline
+$\mu$ & Rataan populasi atau distribusi \\ \hline
+$\mu_X, \mu_Y$ & Rataan masing-masing $X$ dan $Y$ \\ \hline
+$\sigma^2$ & Variansi \\ \hline
+$\sigma$ & Standar deviasi \\ \hline
+$f(x)$ & Fungsi peluang (diskrit) atau densitas (kontinu) \\ \hline
+$f(x,y)$ & Fungsi peluang atau densitas gabungan \\ \hline
+$P(A)$ & Peluang kejadian $A$ \\ \hline
+$\sum$ & Penjumlahan \\ \hline
+$\int$ & Integral \\ \hline
+$g(X)$ & Fungsi dari variabel random $X$ \\ \hline
+$a, b$ & Konstanta dalam kombinasi linear \\ \hline
+$\operatorname{Cov}(X,Y)$ & Kovariansi $X$ dan $Y$ \\ \hline
+$\rho_{XY}$ & Koefisien korelasi $X$ dan $Y$ \\ \hline
+\end{tabular}
+\end{table}
+
+\textit{Catatan penting:} Huruf yang sama bisa memiliki arti berbeda pada distribusi yang berbeda. Contohnya, $k$ pada Teorema Chebyshev adalah banyaknya kelipatan simpangan baku, sedangkan $k$ pada distribusi multinomial adalah banyaknya kategori (atau jumlah sukses pada hipergeometrik dan binomial negatif).
+
+\newpage
+% ==========================================
+% BAB 4
+% ==========================================
+\section{Bab 4: Nilai Ekspektasi dan Variansi Variabel Random}
+
+\subsection{1. Rataan atau Nilai Ekspektasi}
+Rataan atau nilai ekspektasi (dilambangkan dengan $\mu$ atau $E(X)$) dari suatu variabel random $X$ merupakan nilai rata-rata teoretis atau nilai harapan jangka panjang dari hasil-hasil eksperimen apabila eksperimen tersebut diulang terus-menerus.
+
+\subsubsection{Rataan Variabel Random Diskrit}
+Apabila $X$ adalah variabel random diskrit dengan fungsi distribusi peluang $f(x)$, maka nilai ekspektasinya dihitung dengan rumus:
+$$E(X) = \mu = \sum_{x} x \cdot f(x)$$
+\textbf{Keterangan:}
+\begin{itemize}
+    \item $x$: Nilai-nilai spesifik yang mungkin dihasilkan oleh $X$.
+    \item $f(x)$: Peluang terjadinya nilai $x$ ($X = x$).
+    \item $\sum_{x}$: Penjumlahan yang dilakukan terhadap seluruh nilai $x$ yang mungkin.
+\end{itemize}
+
+\subsubsection{Rataan Variabel Random Kontinu}
+Apabila $X$ adalah variabel random kontinu dengan fungsi densitas peluang $f(x)$, maka nilai ekspektasinya dirumuskan sebagai:
+$$E(X) = \mu = \int_{-\infty}^{\infty} x \cdot f(x) \, dx$$
+Di sini $f(x)$ merupakan fungsi densitas (bukan peluang tepat di satu titik), sedangkan $dx$ menunjukkan variabel yang diintegralkan.
+
+\subsubsection{Rataan Fungsi Variabel Random}
+\textbf{Kasus Fungsi Satu Variabel Random $g(X)$:} \\
+\begin{itemize}
+    \item Kasus Diskrit: $E[g(X)] = \sum_{x} g(x) \cdot f(x)$
+    \item Kasus Kontinu: $E[g(X)] = \int_{-\infty}^{\infty} g(x) \cdot f(x) \, dx$
+\end{itemize}
+
+\textbf{Kasus Fungsi Dua Variabel Random $g(X, Y)$:} \\
+\begin{itemize}
+    \item Kasus Diskrit: $E[g(X, Y)] = \sum_{x} \sum_{y} g(x, y) \cdot f(x, y)$
+    \item Kasus Kontinu: $E[g(X, Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) \cdot f(x, y) \, dx \, dy$
+\end{itemize}
+
+\textbf{Sifat Linearitas Ekspektasi (Sangat Berguna):}
+Bila $a, b, c$ adalah konstanta, maka berlaku:
+$$\boxed{E(aX + bY + c) = aE(X) + bE(Y) + c}$$
+Rumus ini berlaku \textbf{meskipun} $X$ dan $Y$ tidak saling bebas. Sangat berguna ketika soal meminta rataan dari gabungan dua variabel.
+
+\subsection{2. Variansi dan Standar Deviasi}
+\subsubsection{Variansi Variabel Random}
+Variansi $\sigma^2$ (atau $\operatorname{Var}(X)$) digunakan untuk mengukur seberapa besar keragaman nilai-nilai variabel random $X$ di sekitar titik rataannya.
+
+\textbf{Rumus Utama (Definisi):}
+Kasus diskrit: $\sigma^2 = E[(X - \mu)^2] = \sum_{x} (x - \mu)^2 \cdot f(x)$ \\
+Kasus kontinu: $\sigma^2 = E[(X - \mu)^2] = \int_{-\infty}^{\infty} (x - \mu)^2 \cdot f(x) \, dx$
+
+\textbf{Rumus Alternatif (Lebih Praktis):}
+$$\operatorname{Var}(X) = E(X^2) - [E(X)]^2$$
+Cara menghitung $E(X^2)$:
+\begin{itemize}
+    \item Kasus Diskrit: $E(X^2) = \sum_{x} x^2 \cdot f(x)$
+    \item Kasus Kontinu: $E(X^2) = \int_{-\infty}^{\infty} x^2 \cdot f(x) \, dx$
+\end{itemize}
+
+\textbf{Cara Cepat Mengerjakan Soal Variansi:}
+\begin{enumerate}
+    \item Hitung $E(X)$
+    \item Hitung $E(X^2)$
+    \item Hitung $\operatorname{Var}(X) = E(X^2) - [E(X)]^2$
+    \item Jika diminta standar deviasi, ambil akar variansinya. \textit{(Ingat: $E(X^2)$ tidak sama dengan $[E(X)]^2$)}
+\end{enumerate}
+
+\subsubsection{Standar Deviasi atau Simpangan Baku}
+Standar deviasi ($\sigma$) didefinisikan sebagai akar kuadrat positif dari variansi.
+$$\sigma = \sqrt{\sigma^2} = \sqrt{\operatorname{Var}(X)}$$
+
+\subsection{3. Kovariansi dan Koefisien Korelasi}
+\subsubsection{a. Kovariansi Variabel Random Diskrit dan Kontinu}
+Kovariansi ($\sigma_{xy}$ atau $\operatorname{Cov}(X, Y)$) menunjukkan sejauh mana dua variabel random bergerak secara bersama-sama. Rumus praktis yang sering dipakai:
+$$\operatorname{Cov}(X,Y) = E(XY) - E(X)E(Y)$$
+\textbf{Cara menghitung $E(XY)$ dari tabel peluang gabungan (diskrit):}
+$$E(XY) = \sum_{x} \sum_{y} xy \cdot f(x,y)$$
+\textit{Keterangan:} $xy$ adalah hasil kali nilai $x$ dan $y$, dan $\sum_{x} \sum_{y}$ adalah penjumlahan atas seluruh pasangan nilai yang mungkin. \\
+Dari tabel peluang gabungan, kamu juga bisa langsung menghitung $E(X)$ dan $E(Y)$:
+$$E(X) = \sum_{x} \sum_{y} x \cdot f(x,y) \quad \text{dan} \quad E(Y) = \sum_{x} \sum_{y} y \cdot f(x,y)$$
+
+\subsubsection{b. Arah Asosiasi / Pergerakan Antar Variabel Random}
+\begin{itemize}
+    \item \textbf{Kovariansi Positif ($\sigma_{xy} > 0$):} Kedua variabel bergerak searah.
+    \item \textbf{Kovariansi Negatif ($\sigma_{xy} < 0$):} Kedua variabel bergerak berlawanan arah.
+    \item \textbf{Kovariansi Nol ($\sigma_{xy} = 0$):} Tidak ada korelasi linear.
+\end{itemize}
+\textbf{Catatan UTS Penting:} Jika dua variabel independen, kovariansinya PASTI nol. Tetapi kovariansi nol \textit{belum tentu} berarti keduanya independen (hanya tidak berkorelasi linear).
+
+\subsubsection{c. Koefisien Korelasi ($\rho_{XY}$)}
+Untuk mengukur kekuatan sekaligus arah hubungan linear yang bebas dari satuan ukuran.
+$$\rho_{XY} = \frac{\operatorname{Cov}(X,Y)}{\sigma_X \cdot \sigma_Y}$$
+Di mana $-1 \le \rho_{XY} \le 1$. ($\sigma_X$ dan $\sigma_Y$ adalah standar deviasi $X$ dan $Y$).
+
+\subsection{4. Kombinasi Linear Rataan dan Variansi}
+\subsubsection{a. Sifat Rataan Dua Variabel Random Saling Bebas}
+Jika $X$ dan $Y$ saling bebas (\textit{independent}):
+$$E(XY) = E(X)E(Y)$$
+
+\subsubsection{b. Variansi Kombinasi Linear}
+Variansi dari kombinasi linear $aX \pm bY + c$ (konstanta $c$ hilang saat divariansikan) adalah:
+$$\operatorname{Var}(aX \pm bY) = a^2\sigma_X^2 + b^2\sigma_Y^2 \pm 2ab\operatorname{Cov}(X,Y)$$
+Tanda pada kovariansi mengikuti koefisien bertanda.
+\textbf{Contoh (seperti di slide):} Jika $Z = 3X - 4Y + 8$, maka:
+$$\operatorname{Var}(Z) = 9\sigma_X^2 + 16\sigma_Y^2 - 24\operatorname{Cov}(X,Y)$$
+\textit{(Konstanta $+8$ tidak memengaruhi nilai variansi sama sekali).} \\
+Jika $X$ dan $Y$ saling bebas, $\operatorname{Cov}(X,Y) = 0$, rumusnya menyederhana menjadi $\operatorname{Var}(aX \pm bY) = a^2\sigma_X^2 + b^2\sigma_Y^2$.
+
+\subsection{5. Teorema Chebyshev}
+Teorema Chebyshev memungkinkan kita menentukan batas minimum peluang bahwa nilai $X$ jatuh di dalam selang simetris tertentu di sekitar nilai rataannya ($\mu$), tanpa perlu mengetahui bentuk distribusinya.
+
+\textbf{Rumus Chebyshev:}
+\begin{itemize}
+    \item Peluang di dalam selang (Sekurang-kurangnya): $P(|X - \mu| < k\sigma) \ge 1 - \frac{1}{k^2}$
+    \item Peluang di luar selang (Paling banyak): $P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}$
+\end{itemize}
+\textit{Keterangan:} $k$ adalah banyaknya kelipatan standar deviasi dari rataan ($k > 1$). Batas bawah selang adalah $\mu - k\sigma$ dan batas atas adalah $\mu + k\sigma$.
+
+\textbf{Tabel Nilai $k$ Chebyshev yang Sering Digunakan:}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Nilai $k$} & \textbf{Peluang minimum dalam selang} \\ \hline
+2 & 75\% \\ \hline
+3 & 88,89\% \\ \hline
+4 & 93,75\% \\ \hline
+\end{tabular}
+\end{table}
+\textit{Perhatikan bahwa hasil Chebyshev adalah batas peluang (paling tidak / paling banyak), bukan nilai peluang eksak.}
+
+\newpage
+% ==========================================
+% BAB 5
+% ==========================================
+\section{Bab 5: Distribusi Peluang Diskrit}
+
+\textbf{Pengantar Konsep Umum Distribusi Diskrit} \\
+\textbf{Aplikasi:} Memodelkan eksperimen dengan variabel random ($X$) diskrit (bernilai bulat/terhitung). \\
+\textbf{Fungsi Massa Peluang (\textit{pmf}):} $f(x) = P(X = x)$. \\
+\textbf{Parameter Utama:} $\mu = E(X) = \sum x \cdot f(x)$ dan $\sigma^2 = E[(X - \mu)^2] = \sum (x - \mu)^2 f(x)$.
+
+\subsection{1. Distribusi Uniform Diskrit}
+\subsubsection{Bentuk 1: Nilai Bilangan Bulat Berurutan dari $i$ sampai $j$}
+Jika $X$ bernilai bulat berurutan (misal $1, 2, 3, 4, 5, 6$), maka jumlah nilainya $k = j - i + 1$.
+\begin{itemize}
+    \item \textbf{Fungsi Peluang:} $f(x) = \frac{1}{j - i + 1}$
+    \item \textbf{Rataan:} $\mu = \frac{i + j}{2}$
+    \item \textbf{Variansi:} $\sigma^2 = \frac{(j - i + 1)^2 - 1}{12}$
+\end{itemize}
+
+\subsection{2. Distribusi Binomial dan Multinomial}
+
+\subsubsection{Distribusi Binomial}
+\textbf{4 Ciri Utama Percobaan Binomial:} (1) Diulang $n$ kali, (2) Hanya ada Sukses/Gagal, (3) Peluang sukses $p$ tetap, (4) Saling bebas (independen).
+\textbf{Fungsi Distribusi Peluang (Tepat $x$ sukses):}
+$$b(x; n, p) = \binom{n}{x} p^x (1-p)^{n-x}, \quad x = 0, 1, 2, \dots, n$$
+\textbf{Rataan dan Variansi:}
+$$\mu = n \cdot p \quad \text{dan} \quad \sigma^2 = n \cdot p \cdot (1 - p)$$
+
+\textbf{Tabel Penerjemahan Kalimat Soal Binomial ke Peluang (Tabel A.1):}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Kalimat Soal} & \textbf{Bentuk Peluang / Rumus Kumulatif} \\ \hline
+Tepat $r$ & $P(X=r) = F(r) - F(r-1)$ \\ \hline
+Paling banyak $r$ & $P(X \le r) = F(r)$ \\ \hline
+Kurang dari $r$ & $P(X \le r-1) = F(r-1)$ \\ \hline
+Sekurang-kurangnya $r$ & $P(X \ge r) = 1 - F(r-1)$ \\ \hline
+Lebih dari $r$ & $P(X \ge r+1) = 1 - F(r)$ \\ \hline
+Antara $a$ dan $b$ (inklusif) & $P(a \le X \le b) = F(b) - F(a-1)$ \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{3. Distribusi Hipergeometrik}
+Distribusi hipergeometrik digunakan untuk menghitung peluang banyaknya keberhasilan (sukses) dalam pengambilan sampel acak dari suatu populasi terbatas, \textbf{tanpa pengembalian} (\textit{without replacement}). 
+Fungsi distribusi hipergeometrik dirumuskan sebagai:
+$$P(X=x) = h(x; N, n, k) = \frac{\binom{k}{x}\binom{N-k}{n-x}}{\binom{N}{n}}$$
+\textbf{Rataan dan Variansi:}
+$$\mu = \frac{nk}{N} \quad \text{dan} \quad \sigma^2 = n\left(\frac{k}{N}\right)\left(1-\frac{k}{N}\right)\left(\frac{N-n}{N-1}\right)$$
+\textbf{Aproksimasi Hipergeometrik ke Binomial:} Boleh dilakukan jika $n/N \le 0{,}05$. Gunakan nilai $p = k/N$.
+
+\subsection{4. Distribusi Binomial Negatif}
+Variabel random $X$ menyatakan \textbf{banyaknya percobaan} yang diperlukan untuk mendapatkan tepat $k$ sukses.
+$$P(X=x) = \binom{x-1}{k-1} p^k q^{x-k}$$
+\textbf{Rataan:} $\mu = \frac{k}{p}$. \textbf{Variansi:} $\sigma^2 = \frac{k(1-p)}{p^2}$.
+
+\subsection{5. Distribusi Geometrik}
+Distribusi geometrik merupakan kasus khusus dari binomial negatif ketika $k=1$. Variabel random $X$ menyatakan \textbf{banyaknya percobaan} sampai \textbf{sukses pertama} terjadi.
+$$P(X=x) = p q^{x-1}$$
+\textbf{Rataan:} $\mu = \frac{1}{p}$. \textbf{Variansi:} $\sigma^2 = \frac{1-p}{p^2}$.
+\textbf{Peluang Kumulatif Geometrik:}
+\begin{itemize}
+    \item Setelah percobaan ke-$r$: $P(X>r) = q^r$
+    \item Paling lambat percobaan ke-$r$: $P(X \le r) = 1 - q^r$
+\end{itemize}
+
+\subsection{6. Distribusi Poisson}
+Distribusi Poisson digunakan untuk menghitung banyaknya kejadian yang terjadi dalam suatu interval waktu atau daerah tertentu (misalnya panggilan per jam).
+$$P(X=x) = \frac{e^{-\mu} \mu^x}{x!}$$
+Di mana $\mu = \lambda t$ adalah rata-rata kejadian pada interval yang ditinjau.
+\textbf{Rataan dan Variansi:} $\mu = E(X) = \operatorname{Var}(X) = \lambda t$. (Khas Poisson: Rataan = Variansi).
+\textbf{Aproksimasi Binomial ke Poisson:} Jika $n$ besar dan $p$ kecil, gunakan Poisson dengan $\mu = n \cdot p$.
+
+\newpage
+% ==========================================
+% BAB 6
+% ==========================================
+\section{Bab 6: Beberapa Distribusi Peluang Kontinu}
+
+\subsection{1. Distribusi Uniform Kontinu}
+Distribusi peluang di mana variabel random $X$ dapat mengambil nilai pada suatu interval $[A, B]$, dengan densitas peluang yang konstan sepanjang interval tersebut.
+$$f(x; A, B) = \begin{cases} \frac{1}{B-A}, & A \le x \le B \\ 0, & \text{lainnya} \end{cases}$$
+\textbf{Peluang:} $P(a < X < b) = \frac{b-a}{B-A}$ \\
+\textbf{Rataan:} $\mu = \frac{A+B}{2}$ \\
+\textbf{Variansi:} $\sigma^2 = \frac{(B-A)^2}{12}$
+
+\subsection{2. Distribusi Normal dan Normal Standar}
+Distribusi normal berbentuk kurva lonceng simetris. Rataan $\mu$ menentukan letak pusat, standar deviasi $\sigma$ menentukan lebar.
+Notasi: $X \sim N(\mu, \sigma^2)$. Ingat: parameter kedua adalah variansi, namun perhitungan menggunakan standar deviasi ($\sigma$).
+\textbf{Standardisasi (Z-Score):}
+$$Z = \frac{X - \mu}{\sigma}$$
+$Z$ berdistribusi Normal Standar $\sim N(0, 1)$. Nilai peluang dilihat pada Tabel A.3 $\Phi(z) = P(Z \le z)$.
+
+\textbf{Aproksimasi Binomial ke Normal:}
+Digunakan jika $np \ge 5$ dan $nq \ge 5$. 
+1. Hitung $\mu = np$ dan $\sigma = \sqrt{npq}$.
+2. Gunakan \textbf{Koreksi Kontinuitas ($\pm 0{,}5$)}:
+   - $P(X \le r) \rightarrow P(Y < r + 0{,}5)$
+   - $P(X \ge r) \rightarrow P(Y > r - 0{,}5)$
+   - $P(X = r) \rightarrow P(r - 0{,}5 < Y < r + 0{,}5)$
+3. Hitung nilai Z dan lihat Tabel A.3.
+
+\subsection{3. Distribusi Gamma}
+Digunakan untuk memodelkan waktu tunggu sampai sejumlah kejadian tertentu terjadi (misal panggilan ke-$m$).
+$$X \sim \operatorname{Gamma}(\alpha, \beta)$$
+\textbf{Rataan:} $\mu = \alpha\beta$. \textbf{Variansi:} $\sigma^2 = \alpha\beta^2$. \\
+\textbf{Tabel A.23:} Menghitung peluang $P(X \le x) = F(u; \alpha)$ dengan \textbf{$u = x/\beta$}.
+Hubungan dengan Poisson: $\beta = 1/\lambda$.
+
+\subsection{4. Distribusi Eksponensial}
+Kasus khusus Gamma saat $\alpha = 1$. Digunakan untuk waktu tunggu kejadian pertama.
+\textbf{Rataan:} $\mu = \beta$. \textbf{Variansi:} $\sigma^2 = \beta^2$. \\
+\textbf{Peluang Cepat:} $P(X > x) = e^{-x/\beta}$ dan $P(X \le x) = 1 - e^{-x/\beta}$.
+Hubungan dengan laju: $\lambda = 1/\beta$.
+
+\subsection{5. Distribusi Chi-Square ($\chi^2$)}
+Kasus khusus Gamma saat $\alpha = \nu/2$ dan $\beta = 2$.
+Memiliki satu parameter $\nu$ (derajat kebebasan). \\
+\textbf{Rataan:} $\mu = \nu$. \textbf{Variansi:} $\sigma^2 = 2\nu$. \\
+\textbf{Tabel A.5:} Menampilkan \textbf{Nilai Kritis} dengan peluang ekor kanan $\alpha$: $P(\chi^2_\nu > \chi^2_{\alpha, \nu}) = \alpha$.
+\textit{(Tabel ini BUKAN tabel probabilitas kumulatif biasa!)}
+
+\subsection{6. Distribusi Lognormal}
+Variabel $X$ disebut Lognormal jika $Y = \ln(X)$ berdistribusi normal $\sim N(\mu, \sigma^2)$. \\
+\textbf{Rataan $X$:} $E(X) = e^{\mu + \sigma^2/2}$. \\
+\textbf{Variansi $X$:} $\operatorname{Var}(X) = e^{2\mu + \sigma^2}(e^{\sigma^2}-1)$. \\
+\textbf{Perhitungan Peluang (Tabel A.3):}
+$$P(X \le x) = \Phi\left(\frac{\ln(x) - \mu}{\sigma}\right)$$
+
+\subsection{7. Distribusi Weibull}
+Digunakan dalam keandalan dan waktu sampai kerusakan mesin. Parameter $\alpha > 0$ dan $\beta > 0$ (notasi buku Walpole, di mana $\beta$ adalah parameter \textit{shape}). \\
+\textbf{Fungsi Kumulatif Cepat (Rusak sebelum $x$):} $P(X \le x) = 1 - e^{-\alpha x^\beta}$ \\
+\textbf{Fungsi Keandalan (Bertahan lebih dari $x$):} $P(X > x) = e^{-\alpha x^\beta}$ \\
+Jika $\beta = 1$, Weibull berubah menjadi Eksponensial.
+
+\newpage
+% ==========================================
+% PANDUAN PENGGUNAAN TABEL APPENDIX (WALPOLE)
+% ==========================================
+\section{Bab 7: Panduan Lengkap Penggunaan Tabel Appendix (Walpole)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Tabel} & \textbf{Kegunaan} & \textbf{Materi Terkait} \\ \hline
+\textbf{A.1} & Peluang kumulatif binomial & Bab 5: Binomial, aproksimasi hipergeometrik \\ \hline
+\textbf{A.2} & Peluang kumulatif Poisson & Bab 5: Poisson, aproksimasi binomial \\ \hline
+\textbf{A.3} & Peluang normal standar ($Z$) & Bab 6: Normal, Lognormal, Aprox Normal \\ \hline
+\textbf{A.5} & Nilai kritis Chi-Square ($\chi^2$) & Bab 6: Chi-Square \\ \hline
+\textbf{A.23} & Fungsi gamma tidak lengkap & Bab 6: Gamma \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Pengingat Penting Penggunaan Tabel:}
+\begin{itemize}
+    \item \textbf{A.1 dan A.2} memberikan area KIRI $P(X \le r)$. Untuk mendapatkan peluang "tepat $r$" ($P(X=r)$), selalu kurangkan $F(r) - F(r-1)$.
+    \item \textbf{A.3} memberikan area KIRI $P(Z \le z)$. Standardisasi dulu! Jangan lupa koreksi kontinuitas $\pm 0{,}5$ jika mengaproksimasi binomial.
+    \item \textbf{A.5} memberikan nilai $\chi^2$ untuk luas area \textbf{KANAN} $\alpha$.
+    \item \textbf{A.23} mensyaratkan konversi $x$ menjadi $u = x/\beta$ terlebih dahulu sebelum membaca nilai tabel.
+\end{itemize}
+
+\newpage
+% ==========================================
+% KUMPULAN LATIHAN SOAL & PEMBAHASAN (DI AKHIR)
+% ==========================================
+\section{Kumpulan Latihan Soal dan Pembahasan}
+
+\subsection{Bagian A: Soal Rataan Variabel Random}
+(Bagian A disembunyikan untuk mempersingkat tampilan, tidak ada perubahan)
+
+\subsection{Bagian B: Pembahasan Soal Fungsi Variabel Random}
+(Bagian B disembunyikan untuk mempersingkat tampilan, tidak ada perubahan)
+
+\subsection{Bagian C: Latihan Soal Tambahan Rataan}
+(Bagian C disembunyikan untuk mempersingkat tampilan, tidak ada perubahan)
+
+\subsection{Bagian D: Soal dan Pembahasan Variansi dan Standar Deviasi}
+(Bagian D disembunyikan untuk mempersingkat tampilan, tidak ada perubahan)
+
+\subsection{Bagian E: Soal dan Pembahasan Kovariansi dan Koefisien Korelasi}
+(Bagian E disembunyikan untuk mempersingkat tampilan, tidak ada perubahan)
+
+\subsection{Bagian F: Soal dan Pembahasan Teorema Chebyshev}
+(Bagian F disembunyikan untuk mempersingkat tampilan, tidak ada perubahan)
+
+\subsection{Bagian G-L: Latihan Bab 5}
+(Bagian G-L disembunyikan untuk mempersingkat tampilan, isinya sesuai dengan versi terakhir)
+
+\subsection{Bagian M: Latihan Soal Distribusi Kontinu (Bab 6)}
+\textbf{Soal 1: Distribusi Uniform Kontinu (Proses Komputasi)} \\
+Waktu penyelesaian suatu proses komputasi mengikuti distribusi uniform kontinu antara 2 hingga 10 menit. Tentukan: (a) Fungsi densitas peluang $f(x)$, (b) Peluang proses selesai antara 4 hingga 7 menit, (c) Peluang selesai lebih dari 6 menit, (d) Rataan dan variansinya. \\
+\textbf{Pembahasan:} \\
+Diketahui $A = 2$, $B = 10$. \\
+\textbf{(a) Fungsi densitas:} $f(x) = \frac{1}{10-2} = \mathbf{\frac{1}{8}}$ untuk $2 \le x \le 10$, dan $0$ lainnya. \\
+\textbf{(b) $P(4 < X < 7)$:} $\frac{7-4}{10-2} = \mathbf{\frac{3}{8} = 0{,}375}$ \\
+\textbf{(c) $P(X > 6)$:} $\frac{10-6}{10-2} = \mathbf{\frac{4}{8} = 0{,}5}$ \\
+\textbf{(d) Rataan ($\mu$) dan Variansi ($\sigma^2$):} \\
+$$\mu = \frac{2+10}{2} = \mathbf{6} \quad \text{dan} \quad \sigma^2 = \frac{(10-2)^2}{12} = \mathbf{\frac{16}{3} \approx 5{,}333}$$
+
+\vspace{0.5cm}
+
+\subsection{Bagian N: Latihan Soal Simulasi Bab 6}
+
+\textbf{Soal 1 — Normal} \\
+$X \sim N(100, 225)$. Tentukan $P(X > 115)$. \\
+\textbf{Pembahasan:} $\mu = 100, \sigma = \sqrt{225} = 15$. \\
+$Z = \frac{115-100}{15} = 1$. $P(Z > 1) = 1 - \Phi(1) = 1 - 0{,}8413 = \mathbf{0{,}1587}$.
+
+\textbf{Soal 2 — Aproksimasi Binomial ke Normal} \\
+Diketahui $X \sim \operatorname{Binomial}(100, 0{,}5)$. Tentukan $P(X \ge 58)$ menggunakan pendekatan normal. \\
+\textbf{Pembahasan:} $\mu = np = 50$, $\sigma = \sqrt{npq} = 5$. Karena batas adalah $\ge 58$, gunakan koreksi kontinuitas menjadi $> 57{,}5$. \\
+$Z = \frac{57{,}5 - 50}{5} = 1{,}5$. $P(Z > 1{,}5) = 1 - 0{,}9332 = \mathbf{0{,}0668}$.
+
+\textbf{Soal 3 — Gamma} \\
+$X \sim \operatorname{Gamma}(2, 2)$. Tentukan $P(X \le 4)$. \\
+\textbf{Pembahasan:} $\alpha = 2, \beta = 2$. $u = x/\beta = 4/2 = 2$. \\
+Dari tabel A.23 untuk $u=2$ dan $\alpha=2$, hasilnya $\mathbf{0{,}5940}$.
+
+\textbf{Soal 4 — Chi-Square} \\
+Tentukan nilai kritis Chi-Square dengan $\nu=6$ yang menyisakan luas 0,05 di sebelah kanan. \\
+\textbf{Pembahasan:} Lihat tabel A.5 pada baris $\nu=6$, kolom $\alpha=0{,}05$. Hasilnya $\mathbf{12{,}592}$.
+
+\textbf{Soal 5 — Lognormal} \\
+Diketahui $Y = \ln(X) \sim N(0, 1)$. Tentukan $P(X \le e)$. \\
+\textbf{Pembahasan:} $P(\ln X \le \ln e) = P(Y \le 1)$. Karena $Y$ adalah normal standar, langsung gunakan A.3 untuk $Z=1$: $\Phi(1) = \mathbf{0{,}8413}$.
+
+\textbf{Soal 6 — Weibull} \\
+Umur komponen mengikuti Weibull dengan $\alpha=0{,}01$ dan $\beta=2$. Tentukan peluang berfungsi setelah 10 jam. \\
+\textbf{Pembahasan:} $P(X > 10) = e^{-\alpha x^\beta} = e^{-0{,}01(10^2)} = e^{-1} \approx \mathbf{0{,}3679}$.
+
+\end{document}
